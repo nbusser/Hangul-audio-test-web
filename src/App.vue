@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'App',
   data: () => ({
@@ -17,13 +19,26 @@ export default {
     audio: null,
     hidden: true,
   }),
+  async mounted() {
+    this.nextHangul();
+  },
   methods: {
     reveal() {
       this.hidden = false;
     },
-    nextHangul() {
-      // TODO: call API
+    async nextHangul() {
+      const { hangul, transcript } = await this.apiGet('hangul', {});
+      this.hangul = hangul;
+      this.transcript = transcript;
       this.hidden = true;
+    },
+    async apiGet(endpoint, payload) {
+      try {
+        return (await axios.get(`/api/${endpoint}`, payload)).data;
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
     },
   },
 };
