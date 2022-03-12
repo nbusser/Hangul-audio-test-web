@@ -3,12 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "npm run build && node index.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "aromanize": "^0.1.5",
+    "body-parser": "^1.19.2",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "node-gtts": "^2.0.2",
+    "utf8": "^3.0.0",
     "vue": "^3.0.0"
   },
   "devDependencies": {
