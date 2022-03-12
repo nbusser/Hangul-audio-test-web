@@ -42,11 +42,11 @@ app.get('/', (_, res) => {
 app.use(express.static(publicAdminRoot));
 
 const router = express.Router();
-router.get('/getHangul', (_, res) => {
+router.get('/hangul', (_, res) => {
   res.json(getRandomHangul());
 });
 
-router.get('/getAudio', (req, res) => {
+router.get('/audio', (req, res) => {
   const { hangul } = req.query;
   if (hangul === undefined) {
     console.error('Empty audio request');
