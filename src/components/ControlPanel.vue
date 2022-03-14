@@ -1,11 +1,19 @@
 <template>
-  <button @click="playAudio">Listen</button>
-  <div class="hangul">
-    <button v-if="hidden" @click="reveal">?</button>
-    <button v-else>{{ hangul.text }}</button>
-    <p v-if="!hidden">{{ hangul.transcript }}</p>
+  <div class="panel">
+    <button @click="playAudio">Listen</button>
+    <div class="response">
+      <div class="hangul">
+        <p v-if="hidden" @click="reveal">
+          ?
+        </p>
+        <p class="hangul" v-else>
+          {{ hangul.text }}
+        </p>
+      </div>
+      <p :style="setHidden">{{ hangul.transcript }}</p>
+    </div>
+    <button @click="nextHangul">Next</button>
   </div>
-  <button @click="nextHangul">Next</button>
 </template>
 
 <script>
@@ -25,7 +33,18 @@ export default {
   },
   computed: {
     hangul() {
+      if (this.hanguls.length === 0) {
+        return {
+          text: '',
+          transcript: '',
+          audio: undefined,
+        };
+      }
       return this.hanguls[0];
+    },
+    setHidden() {
+      const visibility = this.hidden ? 'hidden' : '';
+      return { visibility };
     },
   },
   methods: {
@@ -82,8 +101,25 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+
+p {
+  margin: 0;
+}
+
+.panel {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
 .hangul {
+  font-size: 60px;
+  width: 2em;
+  height: 2em;
+}
+
+.response {
   text-align: center;
 }
 </style>

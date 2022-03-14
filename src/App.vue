@@ -1,6 +1,8 @@
 <template>
   <h1>Hangul audio test</h1>
-  <ControlPanel/>
+  <div class="control-panel">
+    <ControlPanel/>
+  </div>
   <footer>
     MIT Licenced - https://github.com/nbusser/Hangul-audio-test-web
   </footer>
@@ -30,5 +32,10 @@ export default {
     position: absolute;
     bottom: 0;
   }
+}
+
+.control-panel {
+  display : inline-block;
+  text-align: center;
 }
 </style>
