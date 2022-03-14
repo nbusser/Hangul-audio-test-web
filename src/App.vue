@@ -71,6 +71,7 @@ export default {
       this.hidden = true;
       this.hanguls.splice(0, 1);
       this.fillHanguls();
+      this.playAudio();
     },
     async playAudio() {
       const voice = await this.hangul.voice;
