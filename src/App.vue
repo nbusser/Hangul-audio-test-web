@@ -1,5 +1,5 @@
 <template>
-  <button>Listen</button>
+  <button @click="playAudio">Listen</button>
   <div class="hangul">
     <button v-if="hidden" @click="reveal">?</button>
     <button v-else>{{ hangul }}</button>
@@ -10,13 +10,14 @@
 
 <script>
 import axios from 'axios';
+import getRandomHangul from './getHangul';
 
 export default {
   name: 'App',
   data: () => ({
     hangul: null,
     transcript: null,
-    audio: null,
+    voices: null,
     hidden: true,
   }),
   async mounted() {
@@ -27,18 +28,34 @@ export default {
       this.hidden = false;
     },
     async nextHangul() {
-      const { hangul, transcript } = await this.apiGet('hangul', {});
+      const { hangul, transcript } = getRandomHangul();
       this.hangul = hangul;
       this.transcript = transcript;
       this.hidden = true;
+
+      this.voice = (new Blob(
+        [(await this.getAudio(this.hangul)).data],
+        { type: 'audio/mpeg' },
+      ));
     },
-    async apiGet(endpoint, payload) {
+    async getAudio(hangul) {
       try {
-        return (await axios.get(`/api/${endpoint}`, payload)).data;
+        return await axios.get(
+          '/api/audio',
+          {
+            params: { hangul },
+            responseType: 'arraybuffer',
+            responseEncoding: 'binary',
+          },
+        );
       } catch (err) {
         console.error(err);
         throw err;
       }
+    },
+    playAudio() {
+      const audio = new Audio(URL.createObjectURL(this.voice));
+      audio.play();
     },
   },
 };
