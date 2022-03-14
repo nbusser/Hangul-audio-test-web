@@ -1,5 +1,9 @@
 <template>
+  <h1>Hangul audio test</h1>
   <ControlPanel/>
+  <footer>
+    MIT Licenced - https://github.com/nbusser/Hangul-audio-test-web
+  </footer>
 </template>
 
 <script>
@@ -13,7 +17,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -21,5 +25,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  footer {
+    position: absolute;
+    bottom: 0;
+  }
 }
 </style>
