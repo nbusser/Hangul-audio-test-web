@@ -16,7 +16,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "node-gtts": "^2.0.2",
-    "utf8": "^3.0.0",
     "vue": "^3.0.0"
   },
   "devDependencies": {
