@@ -2,8 +2,8 @@
   <button @click="playAudio">Listen</button>
   <div class="hangul">
     <button v-if="hidden" @click="reveal">?</button>
-    <button v-else>{{ hangul }}</button>
-    <p v-if="!hidden">{{ transcript }}</p>
+    <button v-else>{{ hangul.text }}</button>
+    <p v-if="!hidden">{{ hangul.transcript }}</p>
   </div>
   <button @click="nextHangul">Next</button>
 </template>
@@ -12,31 +12,25 @@
 import axios from 'axios';
 import getRandomHangul from './getHangul';
 
+const HANGUL_BUFFER_LEN = 3;
+
 export default {
   name: 'App',
   data: () => ({
-    hangul: null,
-    transcript: null,
-    voices: null,
+    hanguls: [],
     hidden: true,
   }),
   async mounted() {
-    this.nextHangul();
+    this.fillHanguls();
+  },
+  computed: {
+    hangul() {
+      return this.hanguls[0];
+    },
   },
   methods: {
     reveal() {
       this.hidden = false;
-    },
-    async nextHangul() {
-      const { hangul, transcript } = getRandomHangul();
-      this.hangul = hangul;
-      this.transcript = transcript;
-      this.hidden = true;
-
-      this.voice = (new Blob(
-        [(await this.getAudio(this.hangul)).data],
-        { type: 'audio/mpeg' },
-      ));
     },
     async getAudio(hangul) {
       try {
@@ -53,8 +47,34 @@ export default {
         throw err;
       }
     },
-    playAudio() {
-      const audio = new Audio(URL.createObjectURL(this.voice));
+    async getVoice(hangulText) {
+      const voiceData = (await this.getAudio(hangulText)).data;
+      return new Blob(
+        [voiceData],
+        { type: 'audio/mpeg' },
+      );
+    },
+    createHangul() {
+      const { hangul: text, transcript } = getRandomHangul();
+      return {
+        text,
+        transcript,
+        voice: this.getVoice(text),
+      };
+    },
+    fillHanguls() {
+      for (let i = this.hanguls.length; i < HANGUL_BUFFER_LEN; i += 1) {
+        this.hanguls[i] = this.createHangul();
+      }
+    },
+    async nextHangul() {
+      this.hidden = true;
+      this.hanguls.splice(0, 1);
+      this.fillHanguls();
+    },
+    async playAudio() {
+      const voice = await this.hangul.voice;
+      const audio = new Audio(URL.createObjectURL(voice));
       audio.play();
     },
   },
