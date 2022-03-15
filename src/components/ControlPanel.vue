@@ -3,10 +3,10 @@
     <button @click="playAudio">Listen</button>
     <div class="response">
       <div class="hangul">
-        <p v-if="hidden" @click="reveal">
+        <p class="question-mark" v-if="hidden" @click="reveal">
           ?
         </p>
-        <p class="hangul" v-else>
+        <p v-else>
           {{ hangul.text }}
         </p>
       </div>
@@ -114,9 +114,22 @@ p {
 }
 
 .hangul {
+  position: relative;
+  border: 1px solid black;
   font-size: 60px;
   width: 2em;
-  height: 2em;
+  height: 1.7em;
+
+  p {
+    display: inline-block;
+    vertical-align: sub;
+  }
+
+  .question-mark {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+  }
 }
 
 .response {
