@@ -3,12 +3,12 @@
     <button @click="playAudio">Listen</button>
     <div class="response">
       <div class="hangul">
-        <p class="question-mark" v-if="hidden" @click="reveal">
-          ?
-        </p>
-        <p v-else>
-          {{ hangul.text }}
-        </p>
+        <div class="hangul-text question-mark" @click="reveal" v-if="hidden">
+          <p>?</p>
+        </div>
+        <div class="hangul-text" v-else>
+          <p>{{ hangul.text }}</p>
+        </div>
       </div>
       <p :style="setHidden">{{ hangul.transcript }}</p>
     </div>
@@ -50,6 +50,7 @@ export default {
   methods: {
     reveal() {
       this.hidden = false;
+      this.playAudio();
     },
     async getAudio(hangul) {
       try {
@@ -125,10 +126,23 @@ p {
     vertical-align: sub;
   }
 
+  .hangul-text {
+    height: 100%;
+  }
+
   .question-mark {
-    position: absolute;
-    top: 20%;
-    left: 35%;
+    p {
+      padding-top: 0.35em;
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+
+  .question-mark:hover {
+    background-color: beige;
   }
 }
 
