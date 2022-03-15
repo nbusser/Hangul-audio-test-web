@@ -18,6 +18,10 @@
   </div>
   <input type="text" ref="inputTranscript" v-model="userInput"
   @keypress="checkInput" :disabled="!this.hidden"/>
+
+  <audio ref="correctAnswerAudio">
+    <source src="../assets/bell.mp3" type="audio/mpeg">
+  </audio>
 </template>
 
 <script>
@@ -113,6 +117,8 @@ export default {
       const input = this.$refs.inputTranscript;
       if (this.userInput === this.hangul.transcript) {
         input.classList.remove('invalid');
+        this.$refs.correctAnswerAudio.play();
+        this.reveal();
       } else {
         input.classList.add('invalid');
       }
