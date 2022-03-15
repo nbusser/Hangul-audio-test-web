@@ -10,7 +10,9 @@
           <p>{{ hangul.text }}</p>
         </div>
       </div>
-      <p :style="setHidden">{{ hangul.transcript }}</p>
+      <p class="transcript" :style="setHidden">
+        {{ hangul.transcript }}
+      </p>
     </div>
     <button @click="nextHangul">Next</button>
   </div>
@@ -114,6 +116,10 @@ p {
   align-items: center;
 }
 
+.response {
+  text-align: center;
+}
+
 .hangul {
   position: relative;
   border: 1px solid black;
@@ -144,9 +150,14 @@ p {
   .question-mark:hover {
     background-color: beige;
   }
+
+  .question-mark:active {
+    background-color: rgb(240, 240, 167);
+  }
 }
 
-.response {
-  text-align: center;
+.transcript {
+  margin-top: 0.2em;
+  font-size: 30px;
 }
 </style>
