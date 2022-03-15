@@ -1,6 +1,9 @@
 <template>
   <div class="panel">
-    <button @click="playAudio">Listen</button>
+    <div class="btn" @click="playAudio">
+      <span>Listen</span>
+      <img src="../assets/listen.svg"/>
+    </div>
     <div class="response">
       <div class="hangul">
         <div class="hangul-text question-mark" @click="reveal" v-if="hidden">
@@ -14,7 +17,10 @@
         {{ hangul.transcript }}
       </p>
     </div>
-    <button @click="nextHangul">Next</button>
+    <div class="btn" @click="nextHangul">
+      <span>Next</span>
+      <img src="../assets/next.svg"/>
+    </div>
   </div>
   <input type="text" ref="inputTranscript" v-model="userInput"
   @keypress="checkInput" :disabled="!this.hidden"/>
@@ -191,6 +197,15 @@ p {
 input {
   width: 9em;
   margin-left: 0.5em;
+}
+
+.btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3em;
+  padding: 0.3em;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 
 </style>
