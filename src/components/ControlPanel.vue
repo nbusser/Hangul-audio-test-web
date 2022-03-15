@@ -16,6 +16,8 @@
     </div>
     <button @click="nextHangul">Next</button>
   </div>
+  <input type="text" ref="inputTranscript" v-model="userInput"
+  @keypress="checkInput" :disabled="!this.hidden"/>
 </template>
 
 <script>
@@ -29,6 +31,7 @@ export default {
   data: () => ({
     hanguls: [],
     hidden: true,
+    userInput: '',
   }),
   async mounted() {
     this.fillHanguls();
@@ -52,6 +55,7 @@ export default {
   methods: {
     reveal() {
       this.hidden = false;
+      this.$refs.inputTranscript.classList.remove('invalid');
       this.playAudio();
     },
     async getAudio(hangul) {
@@ -92,6 +96,8 @@ export default {
     async nextHangul() {
       this.hidden = true;
       this.hanguls.splice(0, 1);
+      this.userInput = '';
+      this.$refs.inputTranscript.classList.remove('invalid');
       this.fillHanguls();
       this.playAudio();
     },
@@ -99,6 +105,17 @@ export default {
       const voice = await this.hangul.voice;
       const audio = new Audio(URL.createObjectURL(voice));
       audio.play();
+    },
+    checkInput(evt) {
+      if (evt.keyCode !== 13) {
+        return;
+      }
+      const input = this.$refs.inputTranscript;
+      if (this.userInput === this.hangul.transcript) {
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+      }
     },
   },
 };
@@ -160,4 +177,14 @@ p {
   margin-top: 0.2em;
   font-size: 30px;
 }
+
+.invalid {
+  border: 1px solid rgb(158, 0, 0);
+}
+
+input {
+  width: 9em;
+  margin-left: 0.5em;
+}
+
 </style>
