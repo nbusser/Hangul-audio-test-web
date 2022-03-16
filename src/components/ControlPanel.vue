@@ -33,7 +33,7 @@
   </div>
   <div class="input-div">
     <input type="text" ref="inputTranscript" v-model="userInput"
-    @keypress="checkInput" :disabled="!this.hidden"/>
+    @keypress="inputKeyPressed" :disabled="!this.hidden"/>
     <div class="button-6 button-ok"
     :class="[!hidden ? 'btn-disabled' : '']"
     @click="checkInput">
@@ -169,10 +169,12 @@ export default {
         audio.play();
       }
     },
-    checkInput(evt) {
-      if (evt.keyCode !== 13) {
-        return;
+    inputKeyPressed(evt) {
+      if (evt.keyCode === 13) {
+        this.checkInput();
       }
+    },
+    checkInput() {
       const input = this.$refs.inputTranscript;
       if (this.userInput === this.hangul.transcript) {
         input.classList.remove('invalid');
