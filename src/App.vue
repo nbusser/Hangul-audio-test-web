@@ -5,9 +5,9 @@
     <ControlPanel/>
   </div>
   <footer>
-    MIT Licenced -
-    <a href="https://github.com/nbusser/Hangul-audio-test-web">
-      <img src="./assets/github.png"/>
+    MIT Licensed -
+    <a title="Link to the project" target="_blank" href="https://github.com/nbusser/Hangul-audio-test-web">
+      <img alt="Github icon" src="./assets/github.png"/>
     </a>
   </footer>
 </template>
