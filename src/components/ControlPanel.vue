@@ -262,6 +262,10 @@ p {
   border: 3px solid rgb(158, 0, 0) !important;
 }
 
+.invalid:focus-visible {
+  outline: none;
+}
+
 .input-div {
   display: flex;
   justify-content: center;
