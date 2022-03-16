@@ -360,7 +360,7 @@ p {
   }
 }
 
-@media screen and (max-width:500px) {
+@media screen and (min-width:380px) and (max-width:500px) {
   .hangul {
     font-size: 60px;
   }
@@ -371,6 +371,33 @@ p {
 
   .button-6 {
     font-size: 14px;
+  }
+
+  .input-div {
+    input {
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (max-width:380px) {
+  .hangul {
+    font-size: 55px;
+  }
+
+  .transcript {
+    font-size: 25px;
+  }
+
+  .button-6 {
+    font-size: 12px;
+    padding: 1em;
+  }
+
+  .input-div {
+    input {
+      font-size: 15px;
+    }
   }
 }
 

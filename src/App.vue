@@ -60,4 +60,10 @@ footer {
   font-size: 20px;
 }
 
+@media screen and (max-width:380px) {
+  h1 {
+    font-size: 29px;
+  }
+}
+
 </style>
