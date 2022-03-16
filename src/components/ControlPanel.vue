@@ -1,6 +1,8 @@
 <template>
   <p class="hangul-number">Hangul #{{ currentHangul + 1 }}</p>
-  <div class="no-select button-6" @click="playAudio">
+  <div class="no-select button-6"
+  :class="[!hangul.voiceReady ? 'btn-disabled' : '',hangul.voiceError ? 'invalid' : '']"
+  @click="playAudio">
       <span>Listen</span>
       <img src="../assets/listen.svg"/>
   </div>
@@ -66,7 +68,9 @@ export default {
         return {
           text: '',
           transcript: '',
-          audio: undefined,
+          voice: undefined,
+          voiceReady: false,
+          voiceError: false,
           hidden: true,
         };
       }
@@ -101,26 +105,35 @@ export default {
         throw err;
       }
     },
-    async getVoice(hangulText) {
-      const voiceData = (await this.getAudio(hangulText)).data;
-      return new Blob(
-        [voiceData],
-        { type: 'audio/mpeg' },
-      );
+    async getVoice(hangulText, index) {
+      try {
+        const voiceData = (await this.getAudio(hangulText)).data;
+        this.hanguls[index].voiceReady = true;
+        return new Blob(
+          [voiceData],
+          { type: 'audio/mpeg' },
+        );
+      } catch (err) {
+        this.hanguls[index].voiceError = true;
+        return null;
+      }
     },
-    createHangul() {
-      const { hangul: text, transcript } = getRandomHangul();
-      return {
+    createHangul(index) {
+      const { text, transcript } = getRandomHangul();
+      this.hanguls[index] = {
         text,
         transcript,
-        voice: this.getVoice(text),
+        voice: null,
+        voiceReady: false,
+        voiceError: false,
         hidden: true,
       };
+      this.hanguls[index].voice = this.getVoice(text, index);
     },
     fillHanguls() {
       const targetLength = this.hanguls.length + HANGUL_BUFFER_LEN;
       for (let i = this.hanguls.length; i < targetLength; i += 1) {
-        this.hanguls[i] = this.createHangul();
+        this.createHangul(i);
       }
     },
     resetInput() {
@@ -139,9 +152,11 @@ export default {
       this.playAudio();
     },
     async playAudio() {
-      const voice = await this.hangul.voice;
-      const audio = new Audio(URL.createObjectURL(voice));
-      audio.play();
+      if (this.hangul.voiceReady) {
+        const voice = await this.hangul.voice;
+        const audio = new Audio(URL.createObjectURL(voice));
+        audio.play();
+      }
     },
     checkInput(evt) {
       if (evt.keyCode !== 13) {
@@ -229,6 +244,10 @@ p {
   margin-bottom: 0.8em;
 }
 
+.invalid {
+  border: 1px solid rgb(158, 0, 0) !important;
+}
+
 .input-div {
   display: flex;
   justify-content: center;
@@ -243,10 +262,6 @@ p {
     margin-top: 0;
     min-height: fit-content;
     padding: 0.2em;
-  }
-
-  .invalid {
-    border: 1px solid rgb(158, 0, 0);
   }
 }
 

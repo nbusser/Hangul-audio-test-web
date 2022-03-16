@@ -13,12 +13,12 @@ export default (jongsungFreq = 0.5) => {
   const jungsung = randInt(0, nJungsung);
   const jongsung = Math.random() < jongsungFreq ? randInt(0, nJongsung) : 0;
 
-  const hangul = String.fromCharCode(
+  const text = String.fromCharCode(
     0xAC00 + chosung * (nJungsung * nJongsung) + jungsung * nJongsung + jongsung,
   );
-  const transcript = Aromanize.romanize(hangul);
+  const transcript = Aromanize.romanize(text);
   return {
-    hangul,
+    text,
     transcript,
   };
 };
