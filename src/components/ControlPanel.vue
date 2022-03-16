@@ -258,7 +258,7 @@ p {
 }
 
 .invalid {
-  border: 1px solid rgb(158, 0, 0) !important;
+  border: 3px solid rgb(158, 0, 0) !important;
 }
 
 .input-div {
