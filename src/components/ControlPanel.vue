@@ -1,13 +1,13 @@
 <template>
   <div class="panel">
-    <div class="btn" @click="playAudio">
+    <div class="btn no-select button-6" @click="playAudio">
       <span>Listen</span>
       <img src="../assets/listen.svg"/>
     </div>
     <div class="response">
       <div class="hangul">
         <div class="hangul-text question-mark" @click="reveal" v-if="hidden">
-          <p>?</p>
+          <p class="no-select">?</p>
         </div>
         <div class="hangul-text" v-else>
           <p>{{ hangul.text }}</p>
@@ -17,7 +17,7 @@
         {{ hangul.transcript }}
       </p>
     </div>
-    <div class="btn" @click="nextHangul">
+    <div class="btn no-select button-6" @click="nextHangul">
       <span>Next</span>
       <img src="../assets/next.svg"/>
     </div>
@@ -151,7 +151,7 @@ p {
 
 .hangul {
   position: relative;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.4);
   font-size: 60px;
   width: 2em;
   height: 1.7em;
@@ -166,22 +166,21 @@ p {
   }
 
   .question-mark {
+    cursor: pointer;
     p {
       padding-top: 0.35em;
-
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
     }
   }
 
   .question-mark:hover {
-    background-color: beige;
+    border-color: rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 
   .question-mark:active {
-    background-color: rgb(240, 240, 167);
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   }
 }
 
@@ -200,12 +199,60 @@ input {
 }
 
 .btn {
+  cursor: pointer;
   display: flex;
   align-items: flex-start;
   gap: 0.3em;
   padding: 0.3em;
   border: 1px solid black;
   border-radius: 2px;
+}
+
+.button-6 {
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.button-6:hover {
+  transform: translateY(-1px);
+}
+
+.button-6:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
 }
 
 </style>
