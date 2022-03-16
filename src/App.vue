@@ -1,5 +1,6 @@
 <template>
   <h1>Hangul listening test</h1>
+  <p class="guideline">Enter what you hear</p>
   <div class="control-panel">
     <ControlPanel/>
   </div>
@@ -53,6 +54,10 @@ footer {
   margin-top: 2em;
   display : inline-block;
   text-align: center;
+}
+
+.guideline {
+  font-size: 20px;
 }
 
 </style>
