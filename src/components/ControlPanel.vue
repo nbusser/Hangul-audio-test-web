@@ -1,11 +1,11 @@
 <template>
   <p class="hangul-number">Hangul #{{ currentHangul + 1 }}</p>
-  <div class="btn no-select button-6" @click="playAudio">
+  <div class="no-select button-6" @click="playAudio">
       <span>Listen</span>
       <img src="../assets/listen.svg"/>
   </div>
   <div class="panel">
-    <div class="btn no-select button-6"
+    <div class="no-select button-6"
     :class="[currentHangul === 0 ? 'btn-disabled' : '']"
     @click="prevHangul">
       <span>Prev</span>
@@ -24,7 +24,7 @@
         {{ hangul.transcript }}
       </p>
     </div>
-    <div class="btn no-select button-6" @click="nextHangul">
+    <div class="no-select button-6" @click="nextHangul">
       <span>Next</span>
       <img src="../assets/next.svg"/>
     </div>
@@ -226,16 +226,6 @@ input {
   margin-bottom: 0.8em;
 }
 
-.btn {
-  cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.3em;
-  padding: 0.3em;
-  border: 1px solid black;
-  border-radius: 2px;
-}
-
 .button-6 {
   align-items: center;
   background-color: #FFFFFF;
@@ -262,6 +252,7 @@ input {
   touch-action: manipulation;
   vertical-align: baseline;
   width: auto;
+  gap: 0.3em;
 }
 
 .button-6:hover,
