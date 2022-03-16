@@ -7,12 +7,12 @@
       <img src="../assets/listen.svg"/>
   </div>
   <div class="panel">
-    <div class="no-select button-6"
+    <button class="no-select button-6"
     :class="[currentHangul === 0 ? 'btn-disabled' : '']"
     @click="prevHangul">
       <img src="../assets/prev.svg"/>
       <span>Prev</span>
-    </div>
+    </button>
     <div class="response">
       <div class="hangul">
         <div class="hangul-text question-mark" @click="reveal" v-if="hidden">
@@ -26,19 +26,19 @@
         {{ hangul.transcript }}
       </p>
     </div>
-    <div class="no-select button-6" @click="nextHangul">
+    <button ref="nextButton" class="no-select button-6" @click="nextHangul">
       <span>Next</span>
       <img src="../assets/next.svg"/>
-    </div>
+    </button>
   </div>
   <div class="input-div">
     <input type="text" ref="inputTranscript" v-model="userInput"
     @keypress="inputKeyPressed" :disabled="!this.hidden"/>
-    <div class="button-6 button-ok"
+    <button class="button-6 button-ok"
     :class="[!hidden ? 'btn-disabled' : '']"
     @click="checkInput">
       <img src="../assets/arrow-right.svg"/>
-    </div>
+    </button>
   </div>
   <div class="pachim-freq">
     <span>Pachim frequency</span>
@@ -96,6 +96,7 @@ export default {
     reveal() {
       this.hangul.hidden = false;
       this.$refs.inputTranscript.classList.remove('invalid');
+      this.$refs.nextButton.focus();
       this.playAudio();
     },
     async getAudio(hangul) {
