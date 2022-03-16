@@ -50,7 +50,7 @@
 import axios from 'axios';
 import getRandomHangul from '../getHangul';
 
-const HANGUL_BUFFER_LEN = 5;
+const bufferLen = process.env.VUE_APP_HANGUL_BUFFER_LEN;
 
 export default {
   name: 'ControlPanel',
@@ -60,6 +60,9 @@ export default {
     currentHangul: 0,
   }),
   async mounted() {
+    if (bufferLen === undefined) {
+      console.error('Missing environement variable VUE_APP_HANGUL_BUFFER_LEN');
+    }
     this.fillHanguls();
   },
   computed: {
@@ -131,7 +134,7 @@ export default {
       this.hanguls[index].voice = this.getVoice(text, index);
     },
     fillHanguls() {
-      const targetLength = this.hanguls.length + HANGUL_BUFFER_LEN;
+      const targetLength = this.hanguls.length + bufferLen;
       for (let i = this.hanguls.length; i < targetLength; i += 1) {
         this.createHangul(i);
       }
