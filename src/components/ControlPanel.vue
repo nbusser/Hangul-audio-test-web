@@ -8,8 +8,8 @@
     <div class="no-select button-6"
     :class="[currentHangul === 0 ? 'btn-disabled' : '']"
     @click="prevHangul">
-      <span>Prev</span>
       <img src="../assets/prev.svg"/>
+      <span>Prev</span>
     </div>
     <div class="response">
       <div class="hangul">
