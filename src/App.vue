@@ -1,5 +1,5 @@
 <template>
-  <h1>Hangul audio test</h1>
+  <h1>Hangul listening test</h1>
   <div class="control-panel">
     <ControlPanel/>
   </div>
@@ -42,7 +42,9 @@ export default {
 }
 
 .control-panel {
+  margin-top: 2em;
   display : inline-block;
   text-align: center;
 }
+
 </style>
