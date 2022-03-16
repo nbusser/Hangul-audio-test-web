@@ -164,8 +164,12 @@ p {
 .panel {
   display: flex;
   gap: 1em;
-  align-items: baseline;
+  align-items: flex-start;
   margin-top: 0.7em;
+
+  .button-6 {
+    margin-top: 2.5em;
+  }
 }
 
 .response {
