@@ -40,6 +40,10 @@
       <img src="../assets/arrow-right.svg"/>
     </div>
   </div>
+  <div class="pachim-freq">
+    <span>Pachim frequency</span>
+    <input v-model="pachimFreq" type="range" min="0" max="100"/>
+  </div>
 
   <audio ref="correctAnswerAudio">
     <source src="../assets/bell.mp3" type="audio/mpeg">
@@ -58,6 +62,7 @@ export default {
     hanguls: [],
     userInput: '',
     currentHangul: 0,
+    pachimFreq: 0,
   }),
   async mounted() {
     if (bufferLen === undefined) {
@@ -122,7 +127,7 @@ export default {
       }
     },
     createHangul(index) {
-      const { text, transcript } = getRandomHangul();
+      const { text, transcript } = getRandomHangul(this.pachimFreq);
       this.hanguls[index] = {
         text,
         transcript,
@@ -268,6 +273,18 @@ p {
     margin-top: 0;
     min-height: fit-content;
     padding: 0.2em;
+  }
+}
+
+.pachim-freq {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 0.3em;
+  margin-top: 1em;
+
+  input {
+    max-width: 9em;
   }
 }
 

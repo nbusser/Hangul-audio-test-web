@@ -7,18 +7,19 @@ const randInt = (min, max) => Math.floor(
   Math.random() * (max - min),
 );
 
-export default (jongsungFreq = 0.5) => {
+export default (jongsungFreq = 20) => {
   const nChosung = 19;
   const nJungsung = 21;
   const nJongsung = 28;
 
   const chosung = randInt(0, nChosung);
   const jungsung = randInt(0, nJungsung);
-  const jongsung = Math.random() < jongsungFreq ? randInt(0, nJongsung) : 0;
+  const jongsung = Math.random() < jongsungFreq / 100 ? randInt(0, nJongsung) : 0;
 
   const text = String.fromCharCode(
     0xAC00 + chosung * (nJungsung * nJongsung) + jungsung * nJongsung + jongsung,
   );
+
   const transcript = Aromanize.romanize(text);
   return {
     text,
