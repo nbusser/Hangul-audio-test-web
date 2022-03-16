@@ -23,12 +23,19 @@
       <p class="transcript" :style="setHidden">
         {{ hangul.transcript }}
       </p>
-      <input type="text" ref="inputTranscript" v-model="userInput"
-      @keypress="checkInput" :disabled="!this.hidden"/>
     </div>
     <div class="no-select button-6" @click="nextHangul">
       <span>Next</span>
       <img src="../assets/next.svg"/>
+    </div>
+  </div>
+  <div class="input-div">
+    <input type="text" ref="inputTranscript" v-model="userInput"
+    @keypress="checkInput" :disabled="!this.hidden"/>
+    <div class="button-6 button-ok"
+    :class="[!hidden ? 'btn-disabled' : '']"
+    @click="checkInput">
+      <img src="../assets/arrow-right.svg"/>
     </div>
   </div>
 
@@ -126,8 +133,6 @@ export default {
       this.playAudio();
     },
     nextHangul() {
-      // this.hangul.hidden = true;
-      // this.hanguls.splice(0, 1);
       this.currentHangul += 1;
       this.resetInput();
       this.fillHanguls();
@@ -167,12 +172,15 @@ p {
   align-items: flex-start;
   margin-top: 0.7em;
 
-  .button-6 {
+  > .button-6 {
     margin-top: 2.5em;
   }
 }
 
 .response {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -216,18 +224,30 @@ p {
   font-size: 40px;
 }
 
-.invalid {
-  border: 1px solid rgb(158, 0, 0);
-}
-
-input {
-  margin-top: 0.3em;
-  max-width: 8em;
-}
-
 .hangul-number {
   font-size: 20px;
   margin-bottom: 0.8em;
+}
+
+.input-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.2em;
+
+  input {
+    font-size: 20px;
+    max-width: 10em;
+  }
+
+  .button-ok {
+    margin-top: 0;
+    min-height: fit-content;
+    padding: 0.2em;
+  }
+
+  .invalid {
+    border: 1px solid rgb(158, 0, 0);
+  }
 }
 
 .button-6 {
