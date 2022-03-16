@@ -4,7 +4,10 @@
     <ControlPanel/>
   </div>
   <footer>
-    MIT Licenced - https://github.com/nbusser/Hangul-audio-test-web
+    MIT Licenced -
+    <a href="https://github.com/nbusser/Hangul-audio-test-web">
+      <img src="./assets/github.png"/>
+    </a>
   </footer>
 </template>
 
@@ -27,11 +30,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
 
-  footer {
-    position: absolute;
-    bottom: 0;
-  }
+footer {
+  opacity: 0.6;
+  margin-top: 2em;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  justify-content: center;
 }
 
 .no-select {
