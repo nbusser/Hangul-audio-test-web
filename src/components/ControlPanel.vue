@@ -175,7 +175,7 @@ p {
 .hangul {
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.4);
-  font-size: 60px;
+  font-size: 90px;
   width: 2em;
   height: 1.7em;
 
@@ -209,7 +209,7 @@ p {
 
 .transcript {
   margin-top: 0.3em;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .invalid {
@@ -237,7 +237,7 @@ input {
   cursor: pointer;
   display: inline-flex;
   font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   justify-content: center;
   line-height: 1.25;
@@ -282,6 +282,20 @@ input {
 
   img {
     opacity: 0.4;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .hangul {
+    font-size: 60px;
+  }
+
+  .transcript {
+    font-size: 30px;
+  }
+
+  .button-6 {
+    font-size: 14px;
   }
 }
 
