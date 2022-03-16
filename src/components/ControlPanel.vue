@@ -1,8 +1,15 @@
 <template>
-  <div class="panel">
-    <div class="btn no-select button-6" @click="playAudio">
+  <p class="hangul-number">Hangul #{{ currentHangul + 1 }}</p>
+  <div class="btn no-select button-6" @click="playAudio">
       <span>Listen</span>
       <img src="../assets/listen.svg"/>
+  </div>
+  <div class="panel">
+    <div class="btn no-select button-6"
+    :class="[currentHangul === 0 ? 'btn-disabled' : '']"
+    @click="prevHangul">
+      <span>Prev</span>
+      <img src="../assets/prev.svg"/>
     </div>
     <div class="response">
       <div class="hangul">
@@ -34,14 +41,14 @@
 import axios from 'axios';
 import getRandomHangul from '../getHangul';
 
-const HANGUL_BUFFER_LEN = 3;
+const HANGUL_BUFFER_LEN = 5;
 
 export default {
   name: 'ControlPanel',
   data: () => ({
     hanguls: [],
-    hidden: true,
     userInput: '',
+    currentHangul: 0,
   }),
   async mounted() {
     this.fillHanguls();
@@ -53,9 +60,13 @@ export default {
           text: '',
           transcript: '',
           audio: undefined,
+          hidden: true,
         };
       }
-      return this.hanguls[0];
+      return this.hanguls[this.currentHangul];
+    },
+    hidden() {
+      return this.hangul.hidden;
     },
     setHidden() {
       const visibility = this.hidden ? 'hidden' : '';
@@ -64,7 +75,7 @@ export default {
   },
   methods: {
     reveal() {
-      this.hidden = false;
+      this.hangul.hidden = false;
       this.$refs.inputTranscript.classList.remove('invalid');
       this.playAudio();
     },
@@ -96,18 +107,29 @@ export default {
         text,
         transcript,
         voice: this.getVoice(text),
+        hidden: true,
       };
     },
     fillHanguls() {
-      for (let i = this.hanguls.length; i < HANGUL_BUFFER_LEN; i += 1) {
+      const targetLength = this.hanguls.length + HANGUL_BUFFER_LEN;
+      for (let i = this.hanguls.length; i < targetLength; i += 1) {
         this.hanguls[i] = this.createHangul();
       }
     },
-    async nextHangul() {
-      this.hidden = true;
-      this.hanguls.splice(0, 1);
+    resetInput() {
       this.userInput = '';
       this.$refs.inputTranscript.classList.remove('invalid');
+    },
+    prevHangul() {
+      this.currentHangul -= 1;
+      this.resetInput();
+      this.playAudio();
+    },
+    nextHangul() {
+      // this.hangul.hidden = true;
+      // this.hanguls.splice(0, 1);
+      this.currentHangul += 1;
+      this.resetInput();
       this.fillHanguls();
       this.playAudio();
     },
@@ -143,6 +165,7 @@ p {
   display: flex;
   gap: 1em;
   align-items: center;
+  margin-top: 0.7em;
 }
 
 .response {
@@ -185,7 +208,7 @@ p {
 }
 
 .transcript {
-  margin-top: 0.2em;
+  margin-top: 0.7em;
   font-size: 30px;
 }
 
@@ -196,6 +219,11 @@ p {
 input {
   width: 9em;
   margin-left: 0.5em;
+}
+
+.hangul-number {
+  font-size: 20px;
+  margin-bottom: 0.8em;
 }
 
 .btn {
@@ -253,6 +281,17 @@ input {
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
+}
+
+.btn-disabled {
+  pointer-events: none;
+  border: 1px solid rgba(153, 153, 153, 0.3);
+  background-color: rgba(204, 204, 204, 0.4);
+  color: rgba(102, 102, 102, 0.4);
+
+  img {
+    opacity: 0.4;
+  }
 }
 
 </style>
