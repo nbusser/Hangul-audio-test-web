@@ -50,7 +50,7 @@
 import axios from 'axios';
 import getRandomHangul from '../getHangul';
 
-const bufferLen = process.env.VUE_APP_HANGUL_BUFFER_LEN;
+const bufferLen = parseInt(process.env.VUE_APP_HANGUL_BUFFER_LEN, 10);
 
 export default {
   name: 'ControlPanel',
@@ -151,7 +151,10 @@ export default {
     nextHangul() {
       this.currentHangul += 1;
       this.resetInput();
-      this.fillHanguls();
+
+      if (this.hanguls.length < this.currentHangul + bufferLen) {
+        this.fillHanguls();
+      }
       this.playAudio();
     },
     async playAudio() {
