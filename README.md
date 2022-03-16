@@ -1,24 +1,28 @@
-# hangul_audio_test_web
+# Hangul listening test Web
 
-## Project setup
+Use this humble application to test your ability to recognize hanguls.
+
+It will generate random hanguls for you and play an audio transcription of it. You then have to recognize the hangul and write the romanized transcription of it in the input field.
+
+The application contains a node.js server and a Vue.js frontend.
+The server interacts with Google Translate to get audio transcription of each hangul.
+
+The application is [deployed on heroku](https://hangul-listening-test.herokuapp.com/).
+
+## Install
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Create a file named ``.env`` in root folder of the project.
+Inside, write ``VUE_APP_HANGUL_BUFFER_LEN=X`` and replace X with an integer.
+This environment variable determines the size of the buffer used by the application to prepare the following hanguls.
+
+## Usage
+
 ```
-npm run serve
+npm run start
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Then, [connect here](http://localhost:3333).
