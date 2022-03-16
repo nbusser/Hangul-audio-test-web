@@ -23,14 +23,14 @@
       <p class="transcript" :style="setHidden">
         {{ hangul.transcript }}
       </p>
+      <input type="text" ref="inputTranscript" v-model="userInput"
+      @keypress="checkInput" :disabled="!this.hidden"/>
     </div>
     <div class="no-select button-6" @click="nextHangul">
       <span>Next</span>
       <img src="../assets/next.svg"/>
     </div>
   </div>
-  <input type="text" ref="inputTranscript" v-model="userInput"
-  @keypress="checkInput" :disabled="!this.hidden"/>
 
   <audio ref="correctAnswerAudio">
     <source src="../assets/bell.mp3" type="audio/mpeg">
@@ -164,7 +164,7 @@ p {
 .panel {
   display: flex;
   gap: 1em;
-  align-items: center;
+  align-items: baseline;
   margin-top: 0.7em;
 }
 
@@ -208,7 +208,7 @@ p {
 }
 
 .transcript {
-  margin-top: 0.7em;
+  margin-top: 0.3em;
   font-size: 30px;
 }
 
@@ -217,8 +217,8 @@ p {
 }
 
 input {
-  width: 9em;
-  margin-left: 0.5em;
+  margin-top: 0.3em;
+  max-width: 8em;
 }
 
 .hangul-number {
