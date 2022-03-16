@@ -41,8 +41,9 @@
     </button>
   </div>
   <div class="pachim-freq">
-    <span>Pachim frequency</span>
+    <span>Pachim probability</span>
     <input v-model="pachimFreq" type="range" min="0" max="100"/>
+    <span class="value">{{ pachimFreq }}%</span>
   </div>
 
   <audio ref="correctAnswerAudio">
@@ -286,12 +287,17 @@ p {
 .pachim-freq {
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   gap: 0.3em;
   margin-top: 1em;
 
   input {
     max-width: 9em;
+  }
+
+  .value {
+    width: 1em;
+    text-align: right;
   }
 }
 
